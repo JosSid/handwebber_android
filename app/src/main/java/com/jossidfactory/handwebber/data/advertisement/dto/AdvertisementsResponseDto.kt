@@ -1,9 +1,9 @@
-package com.jossidfactory.handwebber.data.dto
+package com.jossidfactory.handwebber.data.advertisement.dto
 
 import com.squareup.moshi.Json
 
 data class AdvertisementsResponseDto(
-    @Json(name = "result") val results: List<AdvertisementDto>,
+    @Json(name = "result") val result: List<AdvertisementDto>,
     @Json(name = "meta") val meta: Meta
 )
 

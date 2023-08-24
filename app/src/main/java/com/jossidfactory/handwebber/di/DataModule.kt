@@ -1,7 +1,9 @@
 package com.jossidfactory.handwebber.di
 
 import com.jossidfactory.handwebber.BuildConfig
-import com.jossidfactory.handwebber.data.AdvertisementDataService
+import com.jossidfactory.handwebber.data.advertisement.AdvertisementDataService
+import com.jossidfactory.handwebber.data.advertisement.AdvertisementRepository
+import com.jossidfactory.handwebber.data.advertisement.AdvertisementRepositoryImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -35,6 +37,10 @@ val DataModule = module {
 
     single<AdvertisementDataService> {
         getAdvertisementData(get())
+    }
+
+    single<AdvertisementRepository> {
+        AdvertisementRepositoryImpl(get())
     }
 }
 

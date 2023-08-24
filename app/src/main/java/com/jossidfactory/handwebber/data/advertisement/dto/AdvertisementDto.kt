@@ -1,4 +1,4 @@
-package com.jossidfactory.handwebber.data.dto
+package com.jossidfactory.handwebber.data.advertisement.dto
 
 import com.squareup.moshi.Json
 

@@ -1,7 +1,7 @@
 package com.jossidfactory.handwebber.screen.advertisement.list
 
-import com.jossidfactory.handwebber.data.dto.AdvertisementDto
+import com.jossidfactory.handwebber.domain.advertisement.model.AdvertisementModel
 
 data class AdvertisementsListState(
-    val advertisements: List<AdvertisementDto> = listOf()
+    val advertisements: List<AdvertisementModel> = listOf()
 )
