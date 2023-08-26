@@ -13,7 +13,7 @@ import com.jossidfactory.handwebber.domain.advertisement.model.AdvertisementMode
 @Composable
 fun AdvertisementList(advertisements: List<AdvertisementModel>, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
-        contentPadding = PaddingValues(2.dp),
+        //contentPadding = PaddingValues(2.dp),
         columns = GridCells.Adaptive(150.dp),
         modifier = modifier
        ) {
