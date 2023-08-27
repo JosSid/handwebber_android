@@ -1,7 +1,10 @@
 package com.jossidfactory.handwebber.screen.layout
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -9,7 +12,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.jossidfactory.handwebber.R
 import com.jossidfactory.handwebber.navigation.Screen
@@ -17,21 +22,38 @@ import com.jossidfactory.handwebber.navigation.Screen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBarApp(currentRoute: String?, navController: NavController) {
+
+    val titleScreen = currentRoute?.split("_")?.first()?.capitalize() ?: ""
+
     TopAppBar(
-        title = { Column {
-            Text(text = stringResource(R.string.app_name))
+        title = {
+            Column {
+                Text(text = stringResource(R.string.app_name))
 
-            if (currentRoute != null) {
-                Text(text = currentRoute)
+                Text(text = titleScreen)
+
             }
-
-        }},
+        },
         navigationIcon = {
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = "Menu"
-                )
+            if(titleScreen != "Advertisements") {
+                IconButton(onClick = {navController.navigate(Screen.AdvertisementsListScreen.route)}) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back"
+                    )
+                }
+            } else {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = "Menu"
+                    )
+                }
             }
-        })
+        },
+        actions = { Text(text = "Login", modifier = Modifier
+            .clickable { navController.navigate(Screen.LoginScreen.route) }
+            .padding(end = 15.dp))}
+    )
+
 }

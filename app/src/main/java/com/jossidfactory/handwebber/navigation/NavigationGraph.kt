@@ -13,5 +13,6 @@ fun NavigationGraph(navController: NavController, paddingValues: PaddingValues) 
         ) {
         addAdvertisementsListScreen(navController, paddingValues)
         addAdvertisementDetailScreen(navController, paddingValues)
+        addLoginScreen(navController, paddingValues)
     }
 }
