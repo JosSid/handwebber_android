@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.jossidfactory.handwebber"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.jossidfactory.handwebber"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -71,6 +71,7 @@ dependencies {
     val koinVersion = "3.4.2"
     val retrofitVersion = "2.9.0"
     val lifecycleVersion = "2.6.1"
+    val navVersion = "2.7.1"
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -101,6 +102,9 @@ dependencies {
 
     //coil
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //Navigation
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

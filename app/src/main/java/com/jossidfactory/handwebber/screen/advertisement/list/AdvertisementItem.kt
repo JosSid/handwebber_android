@@ -25,12 +25,12 @@ import com.jossidfactory.handwebber.domain.advertisement.model.AdvertisementMode
 @Composable
 fun AdvertisementItem(
     advertisement: AdvertisementModel,
-    modifier: Modifier = Modifier
+    onItemClick: (String) -> Unit
 ) {
 
     ElevatedCard(
-        onClick = { /*TODO*/ },
-        modifier = modifier,
+        onClick = { onItemClick(advertisement.id) },
+        modifier = Modifier.padding(8.dp),
         elevation = CardDefaults.cardElevation(10.dp),
     ) {
         Column {
