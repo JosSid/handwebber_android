@@ -4,6 +4,9 @@ import com.jossidfactory.handwebber.BuildConfig
 import com.jossidfactory.handwebber.data.advertisement.AdvertisementDataService
 import com.jossidfactory.handwebber.data.advertisement.AdvertisementRepository
 import com.jossidfactory.handwebber.data.advertisement.AdvertisementRepositoryImpl
+import com.jossidfactory.handwebber.data.user.UserDataService
+import com.jossidfactory.handwebber.data.user.UserRepository
+import com.jossidfactory.handwebber.data.user.UserRepositoryImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -42,7 +45,18 @@ val DataModule = module {
     single<AdvertisementRepository> {
         AdvertisementRepositoryImpl(get())
     }
+
+    single<UserDataService> {
+        getUserData(get())
+    }
+
+    single<UserRepository> {
+        UserRepositoryImpl(get())
+    }
 }
 
 private fun getAdvertisementData(retrofit: Retrofit) =
     retrofit.create(AdvertisementDataService::class.java)
+
+private fun getUserData(retrofit: Retrofit) =
+    retrofit.create(UserDataService::class.java)

@@ -6,6 +6,6 @@ import com.jossidfactory.handwebber.domain.advertisement.model.AdvertisementResp
 class GetAdvertisementByIdUseCase(
     private val advertisementRepository: AdvertisementRepository
 ) {
-    suspend operator fun invoke(id: String): AdvertisementResponseModel = advertisementRepository
+    suspend fun invoke(id: String): AdvertisementResponseModel = advertisementRepository
         .getAdvertisementById(id)
 }

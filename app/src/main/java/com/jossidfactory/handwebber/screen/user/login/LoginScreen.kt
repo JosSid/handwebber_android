@@ -1,6 +1,5 @@
 package com.jossidfactory.handwebber.screen.user.login
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -24,8 +23,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     loginViewModel: LoginViewModel = koinViewModel(),
-    paddingValues: PaddingValues,
-    onLoginClick: (email: String, password: String) -> Unit
+    paddingValues: PaddingValues
 ) {
     val state: LoginState by loginViewModel.state.observeAsState(
         LoginState()
@@ -60,7 +58,7 @@ fun LoginScreen(
         )
 
         Button(
-            onClick = { onLoginClick(state.email, state.password) },
+            onClick = { loginViewModel.onLoginClick(state.email, state.password) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -69,6 +67,4 @@ fun LoginScreen(
         }
     }}
 
-fun onLoginClick(email: String, password: String): Unit {
-    Log.d("DATA", email + password)
-}
+
