@@ -1,4 +1,4 @@
-package com.jossidfactory.handwebber.data.user.dto
+package com.jossidfactory.handwebber.data.user.remote.dto
 
 import com.squareup.moshi.Json
 

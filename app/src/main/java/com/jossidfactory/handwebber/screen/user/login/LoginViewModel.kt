@@ -5,12 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jossidfactory.handwebber.data.user.dto.LoginUserDto
+import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
+import com.jossidfactory.handwebber.domain.user.usecase.GetLoggedUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val loginUserUseCase: LoginUserUseCase
+    private val loginUserUseCase: LoginUserUseCase,
+    private val getLoggedUserUseCase: GetLoggedUserUseCase
 ): ViewModel() {
     private val loginState = LoginState()
 
@@ -38,7 +40,9 @@ class LoginViewModel(
         viewModelScope.launch {
             try {
                 val result = loginUserUseCase.invoke(body)
+                val user = getLoggedUserUseCase.invoke()
                 Log.d("DATA", result)
+                user?.get(0)?.let { Log.d("USER", it.toString()) }
             }catch (e: Throwable) {
                 e.message?.let { Log.d("DATA", it) }
             }

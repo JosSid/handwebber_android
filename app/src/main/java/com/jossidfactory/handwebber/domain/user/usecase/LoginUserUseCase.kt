@@ -1,7 +1,7 @@
 package com.jossidfactory.handwebber.domain.user.usecase
 
 import com.jossidfactory.handwebber.data.user.UserRepository
-import com.jossidfactory.handwebber.data.user.dto.LoginUserDto
+import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 
 class LoginUserUseCase(
     private val  userRepository: UserRepository
