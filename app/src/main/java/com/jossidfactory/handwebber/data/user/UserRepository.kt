@@ -5,7 +5,7 @@ import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 
 interface UserRepository {
 
-    fun getUserLogged(): UserLoggedEntity?
+    suspend fun getUserLogged(): UserLoggedEntity?
 
     suspend fun postLoginUser(body: LoginUserDto): String
 

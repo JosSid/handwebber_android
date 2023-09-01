@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jossidfactory.handwebber.data.user.local.AuthRepository
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 import com.jossidfactory.handwebber.domain.user.usecase.GetLoggedUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
@@ -12,7 +13,8 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val loginUserUseCase: LoginUserUseCase,
-    private val getLoggedUserUseCase: GetLoggedUserUseCase
+    private val getLoggedUserUseCase: GetLoggedUserUseCase,
+    private val authRepository: AuthRepository
 ): ViewModel() {
     private val loginState = LoginState()
 
@@ -39,10 +41,9 @@ class LoginViewModel(
         val body = LoginUserDto(email, password)
         viewModelScope.launch {
             try {
-                val result = loginUserUseCase.invoke(body)
-                val user = getLoggedUserUseCase.invoke()
-                Log.d("DATA", result)
-                user?.let { Log.d("USER", it.toString()) }
+                val token = loginUserUseCase.invoke(body)
+                authRepository.setToken(token)
+
             }catch (e: Throwable) {
                 e.message?.let { Log.d("DATA", it) }
             }

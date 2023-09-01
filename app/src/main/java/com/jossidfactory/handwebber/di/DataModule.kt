@@ -64,7 +64,7 @@ val DataModule = module {
     }
 
     single<UserRepository> {
-        UserRepositoryImpl(get(), get())
+        UserRepositoryImpl(get(), get(), get())
     }
 
     single {
@@ -75,9 +75,6 @@ val DataModule = module {
         providesUserDao(get())
     }
 
-    single<AuthRepository> {
-        AuthRepositoryImpl(get())
-    }
 }
 
 private fun getAdvertisementData(retrofit: Retrofit) =

@@ -13,7 +13,7 @@ class HeaderInterceptor(
 
     private var token: String? = null
         get() {
-            field = if(field == null) {
+            field = if(field.isNullOrEmpty()) {
                 runBlocking(Dispatchers.IO) {
                     authRepository.getToken()
                 }

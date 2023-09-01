@@ -1,6 +1,7 @@
 package com.jossidfactory.handwebber.data.user.local
 
 import android.content.Context
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.Dispatchers
@@ -22,5 +23,11 @@ class AuthRepositoryImpl(
                 }.firstOrNull() ?: ""
             }
 
+    }
+
+    override suspend fun setToken(token: String) {
+        context.dataStore.edit { preferences ->
+            preferences[stringPreferencesKey("token")] = token
+        }
     }
 }
