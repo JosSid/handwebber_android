@@ -42,7 +42,7 @@ class LoginViewModel(
                 val result = loginUserUseCase.invoke(body)
                 val user = getLoggedUserUseCase.invoke()
                 Log.d("DATA", result)
-                user?.get(0)?.let { Log.d("USER", it.toString()) }
+                user?.let { Log.d("USER", it.toString()) }
             }catch (e: Throwable) {
                 e.message?.let { Log.d("DATA", it) }
             }

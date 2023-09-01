@@ -10,14 +10,14 @@ class UserRepositoryImpl(
     private val userDataService: UserDataService,
     private val userDao: UserDao
 ): UserRepository {
-    override suspend fun getUserLogged(): List<UserLoggedEntity>? {
+    override fun getUserLogged(): UserLoggedEntity? {
         return userDao.getUserLogged()
     }
 
     override suspend fun postLoginUser(body: LoginUserDto): String {
         val token = userDataService.postLoginUser(body)
         Log.d("RECEIVEDTOKEN", token)
-        val id = postTokenTest("Bearer $token")
+        val id = postTokenTest()
         Log.d("RECEIVEDID", id)
         val email = body.email
 
@@ -28,8 +28,8 @@ class UserRepositoryImpl(
         return token
     }
 
-    override suspend fun postTokenTest(token: String): String {
-        return userDataService.postTokenTest(token)
+    override suspend fun postTokenTest(): String {
+        return userDataService.postTokenTest()
     }
 
 
