@@ -9,7 +9,7 @@ import com.jossidfactory.handwebber.data.user.local.model.UserLoggedEntity
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user_logged")
-    fun getUserLogged(): UserLoggedEntity?
+    suspend fun getUserLogged(): UserLoggedEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUserLogged(user: UserLoggedEntity)

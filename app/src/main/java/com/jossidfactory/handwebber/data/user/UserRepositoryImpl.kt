@@ -1,11 +1,11 @@
 package com.jossidfactory.handwebber.data.user
 
-import android.util.Log
 import com.jossidfactory.handwebber.data.user.local.AuthRepository
 import com.jossidfactory.handwebber.data.user.local.UserDao
 import com.jossidfactory.handwebber.data.user.local.model.UserLoggedEntity
 import com.jossidfactory.handwebber.data.user.remote.UserDataService
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
+import com.jossidfactory.handwebber.data.user.remote.dto.UserByIdDto
 
 class UserRepositoryImpl(
     private val userDataService: UserDataService,
@@ -16,23 +16,30 @@ class UserRepositoryImpl(
         return userDao.getUserLogged()
     }
 
-    override suspend fun postLoginUser(body: LoginUserDto): String {
+    override suspend fun postLoginUser(body: LoginUserDto) {
         val token = userDataService.postLoginUser(body)
-        Log.d("RECEIVEDTOKEN", token)
+
         authRepository.setToken(token)
+
         val id = postTokenTest()
-        Log.d("RECEIVEDID", id)
+
         val email = body.email
 
+        val user = getUserById(id)
 
-        val user = UserLoggedEntity(id,email,token)
+        val userEntity = UserLoggedEntity(id,user.username,email,user.image ?: "",
+            user.subscriptions.toString())
 
-        userDao.insertUserLogged(user)
-        return token
+        userDao.insertUserLogged(userEntity)
     }
 
     override suspend fun postTokenTest(): String {
         return userDataService.postTokenTest()
+    }
+
+    override suspend fun getUserById(id: String): UserByIdDto {
+        val user = userDataService.getUserById(id)
+        return user.result
     }
 
 
