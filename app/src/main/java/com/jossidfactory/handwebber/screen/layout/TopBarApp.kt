@@ -21,7 +21,10 @@ import com.jossidfactory.handwebber.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarApp(currentRoute: String?, navController: NavController) {
+fun TopBarApp(isLogged: Boolean,
+              currentRoute: String?,
+              navController: NavController,
+              onLogOut: () -> Unit) {
 
     val titleScreen = currentRoute?.split("_")?.first()?.capitalize() ?: ""
 
@@ -51,8 +54,10 @@ fun TopBarApp(currentRoute: String?, navController: NavController) {
                 }
             }
         },
-        actions = { Text(text = "Login", modifier = Modifier
-            .clickable { navController.navigate(Screen.LoginScreen.route) }
+        actions = { Text(text = if(isLogged)"Logout" else "Login",
+            modifier = Modifier
+            .clickable { if(isLogged) onLogOut() else navController.navigate(Screen.LoginScreen
+                .route) }
             .padding(end = 15.dp))}
     )
 

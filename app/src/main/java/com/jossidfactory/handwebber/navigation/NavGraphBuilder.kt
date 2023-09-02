@@ -36,9 +36,14 @@ PaddingValues) {
     }
 }
 
-fun NavGraphBuilder.addLoginScreen(navController: NavController,paddingValues:
-PaddingValues) {
+fun NavGraphBuilder.addLoginScreen(
+    navController: NavController, paddingValues:
+    PaddingValues, cb: () -> Unit
+) {
     composable(Screen.LoginScreen.route) {
-        LoginScreen(paddingValues = paddingValues)
+        LoginScreen(paddingValues = paddingValues) {
+            cb()
+
+        }
     }
 }

@@ -23,7 +23,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     loginViewModel: LoginViewModel = koinViewModel(),
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    onLoginNavigate: () -> Unit
 ) {
     val state: LoginState by loginViewModel.state.observeAsState(
         LoginState()
@@ -58,7 +59,10 @@ fun LoginScreen(
         )
 
         Button(
-            onClick = { loginViewModel.onLoginClick(state.email, state.password) },
+            onClick = { loginViewModel.onLoginClick(state.email, state.password) {
+                onLoginNavigate()
+            }
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)

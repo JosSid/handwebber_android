@@ -10,7 +10,7 @@ import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val loginUserUseCase: LoginUserUseCase,
+    private val loginUserUseCase: LoginUserUseCase
 ): ViewModel() {
     private val loginState = LoginState()
 
@@ -33,11 +33,12 @@ class LoginViewModel(
         )
     }
 
-    fun onLoginClick(email: String, password: String) {
+    fun onLoginClick(email: String, password: String, cb: () -> Unit) {
         val body = LoginUserDto(email, password)
         viewModelScope.launch {
             try {
                 loginUserUseCase.invoke(body)
+                cb()
             }catch (e: Throwable) {
                 e.message?.let { Log.d("DATA", it) }
             }
