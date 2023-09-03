@@ -14,22 +14,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.jossidfactory.handwebber.R
 import com.jossidfactory.handwebber.screen.components.ButtonBase
+import com.jossidfactory.handwebber.screen.components.CheckboxBase
 import com.jossidfactory.handwebber.screen.components.TextFieldBase
 import com.jossidfactory.handwebber.screen.components.TextFieldPassword
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun LoginForm(
-    loginViewModel: LoginViewModel = koinViewModel(),
+fun SignupForm(
+    signupViewModel: SignupViewModel = koinViewModel(),
     paddingValues: PaddingValues,
     changeForm: () -> Unit,
     onLoginNavigate: () -> Unit
 ) {
-    val state: LoginState by loginViewModel.state.observeAsState(
-        LoginState()
+
+    val state: SignupState by signupViewModel.state.observeAsState(
+        SignupState()
     )
 
     Column(
@@ -40,33 +44,49 @@ fun LoginForm(
         verticalArrangement = Arrangement.Center
     ) {
 
-        Text(text = "Click here for Signup",
+        Text(text = "Back to login",
             modifier = Modifier
                 .padding(5.dp)
                 .clickable { changeForm() },
             color = MaterialTheme.colorScheme.primary
         )
-        TextFieldBase(text = "Email",
-            textValue = state.email ,
-            keyboardType = KeyboardType.Email,
-            onValueChange = { loginViewModel.onEmailChange(it) }
+
+        TextFieldBase(text = stringResource(id = R.string.username),
+            textValue = state.username ,
+            onValueChange = { signupViewModel.onFieldChange(it, "Username") }
         )
 
-        TextFieldPassword(text = "Password",
+        TextFieldBase(text = stringResource(id = R.string.email),
+            textValue = state.email ,
+            keyboardType = KeyboardType.Email,
+            onValueChange = { signupViewModel.onFieldChange(it, "Email") }
+        )
+
+        TextFieldPassword(text = stringResource(id = R.string.password) + " (min 8 characters)",
             textValue = state.password,
-            onValueChange = { loginViewModel.onPasswordChange(it) }
+            onValueChange = { signupViewModel.onFieldChange(it, "Password") }
+        )
+
+        TextFieldPassword(text = "Confirm " + stringResource(id = R.string.password),
+            textValue = state.confirmPassword,
+            onValueChange = { signupViewModel.onFieldChange(it, "Confirm password") }
         )
 
         Spacer(modifier = Modifier.padding(3.dp))
 
+        CheckboxBase(
+            text = "Accept conditions",
+            checked = state.checked
+        ) { signupViewModel.onCheckedChange() }
+
         ButtonBase(
-            text = "Login",
-            isEnabled = loginViewModel.isEnabledButton(state.email, state.password)
+            text = "Signup",
+            isEnabled = signupViewModel.isEnabledButton(state)
         ) {
-            loginViewModel.onLoginClick(state.email, state.password) {
+            signupViewModel.onLoginClick(state) {
                 onLoginNavigate()
             }
         }
     }
-
+    
 }

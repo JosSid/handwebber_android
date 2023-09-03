@@ -11,7 +11,7 @@ import androidx.compose.ui.text.input.KeyboardType
 fun TextFieldBase(
     text: String,
     textValue: String,
-    keyboardType: KeyboardType,
+    keyboardType: KeyboardType = KeyboardType.Text,
     onValueChange: (String) -> Unit
 ) {
     OutlinedTextField(
