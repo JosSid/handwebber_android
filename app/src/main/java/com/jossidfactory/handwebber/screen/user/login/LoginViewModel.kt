@@ -44,4 +44,10 @@ class LoginViewModel(
             }
         }
     }
+
+    fun isEnabledButton(email: String, password: String): Boolean {
+        val emailPattern = Regex("^\\S+@\\S+\\.\\S+\$")
+
+        return emailPattern.matches(email) && password.length >= 4
+    }
 }

@@ -49,7 +49,10 @@ fun LoginForm(
 
         Spacer(modifier = Modifier.padding(3.dp))
 
-        ButtonBase(text = "Login") {
+        ButtonBase(
+            text = "Login",
+            isEnabled = loginViewModel.isEnabledButton(state.email, state.password)
+        ) {
             loginViewModel.onLoginClick(state.email, state.password) {
                 onLoginNavigate()
             }

@@ -8,8 +8,8 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun ButtonBase(text: String, onClick: () -> Unit) {
-    Button(onClick = { onClick() }) {
+fun ButtonBase(text: String, isEnabled: Boolean, onClick: () -> Unit) {
+    Button(onClick = { onClick() }, enabled =  isEnabled ) {
         Text(
             text = text,
             fontSize = 20.sp,
