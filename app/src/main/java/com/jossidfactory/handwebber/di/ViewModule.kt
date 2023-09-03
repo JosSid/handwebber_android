@@ -13,5 +13,5 @@ val ViewModule = module {
     viewModel { AdvertisementsListViewModel(get()) }
     viewModel { AdvertisementDetailViewModel(get()) }
     viewModel { LoginViewModel(get()) }
-    viewModel { SignupViewModel() }
+    viewModel { SignupViewModel(get(), get()) }
 }

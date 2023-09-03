@@ -1,10 +1,12 @@
 package com.jossidfactory.handwebber.data.user
 
+import android.util.Log
 import com.jossidfactory.handwebber.data.user.local.AuthRepository
 import com.jossidfactory.handwebber.data.user.local.UserDao
 import com.jossidfactory.handwebber.data.user.local.model.UserLoggedEntity
 import com.jossidfactory.handwebber.data.user.remote.UserDataService
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
+import com.jossidfactory.handwebber.data.user.remote.dto.SignupUserRequestDto
 import com.jossidfactory.handwebber.data.user.remote.dto.UserByIdDto
 
 class UserRepositoryImpl(
@@ -40,6 +42,15 @@ class UserRepositoryImpl(
     override suspend fun getUserById(id: String): UserByIdDto {
         val user = userDataService.getUserById(id)
         return user.result
+    }
+
+    override suspend fun postSignupUser(body: SignupUserRequestDto) {
+        val result = userDataService.postSignupUser(
+            body.username,
+            body.email,
+            body.password,
+            body.image)
+        Log.d("POSTSIGNUP", result.toString())
     }
 
 

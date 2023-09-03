@@ -5,9 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
+import com.jossidfactory.handwebber.data.user.remote.dto.SignupUserRequestDto
+import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
+import com.jossidfactory.handwebber.domain.user.usecase.SignupUserUseCase
 import kotlinx.coroutines.launch
 
-class SignupViewModel() : ViewModel() {
+class SignupViewModel(
+    private val signupUserUseCase: SignupUserUseCase,
+    private val loginUserUseCase: LoginUserUseCase
+) : ViewModel() {
     private val signupState = SignupState()
 
     private val _state = MutableLiveData<SignupState>()
@@ -53,12 +60,20 @@ class SignupViewModel() : ViewModel() {
 
 
     fun onLoginClick(state: SignupState, cb: () -> Unit) {
-        //val body = LoginUserDto(email, password)
+
+        val requestBody = SignupUserRequestDto(
+            state.username,
+            state.email,
+            state.password,
+            state.image
+        )
+
         viewModelScope.launch {
             try {
                 Log.d("SIGNUP", state.toString())
-                //loginUserUseCase.invoke(body)
-                //cb()
+                signupUserUseCase.invoke(requestBody)
+                loginUserUseCase.invoke(LoginUserDto(state.email, state.password))
+                cb()
             } catch (e: Throwable) {
                 e.message?.let { Log.d("DATA", it) }
             }
