@@ -1,6 +1,5 @@
 package com.jossidfactory.handwebber.data.user
 
-import android.util.Log
 import com.jossidfactory.handwebber.data.user.local.AuthRepository
 import com.jossidfactory.handwebber.data.user.local.UserDao
 import com.jossidfactory.handwebber.data.user.local.model.UserLoggedEntity
@@ -8,6 +7,7 @@ import com.jossidfactory.handwebber.data.user.remote.UserDataService
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 import com.jossidfactory.handwebber.data.user.remote.dto.SignupUserRequestDto
 import com.jossidfactory.handwebber.data.user.remote.dto.UserByIdDto
+import timber.log.Timber
 
 class UserRepositoryImpl(
     private val userDataService: UserDataService,
@@ -50,7 +50,7 @@ class UserRepositoryImpl(
             body.email,
             body.password,
             body.image)
-        Log.d("POSTSIGNUP", result.toString())
+        Timber.d(result.toString())
     }
 
 

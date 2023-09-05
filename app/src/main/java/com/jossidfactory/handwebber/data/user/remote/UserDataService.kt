@@ -3,11 +3,13 @@ package com.jossidfactory.handwebber.data.user.remote
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 import com.jossidfactory.handwebber.data.user.remote.dto.SignupUserResponseDto
 import com.jossidfactory.handwebber.data.user.remote.dto.UserByIdResponseDto
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface UserDataService {
@@ -20,11 +22,14 @@ interface UserDataService {
     @POST("users/tokenTest")
     suspend fun postTokenTest(): String
 
-    @FormUrlEncoded
+
+    @Multipart
     @POST("users/signup")
-    suspend fun postSignupUser(@Field("username") username: String,
-                               @Field("mail") email: String,
-                               @Field("password") password: String,
-                               @Field("image") image: String?) : SignupUserResponseDto
+    suspend fun postSignupUser(
+        @Part("username") username: RequestBody,
+        @Part("mail") email: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): SignupUserResponseDto
 
 }

@@ -1,6 +1,6 @@
 package com.jossidfactory.handwebber.screen.user.login
 
-import android.util.Log
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +9,11 @@ import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 import com.jossidfactory.handwebber.data.user.remote.dto.SignupUserRequestDto
 import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.SignupUserUseCase
+import com.jossidfactory.handwebber.utils.toMultipart
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import timber.log.Timber
 
 class SignupViewModel(
     private val signupUserUseCase: SignupUserUseCase,
@@ -20,8 +24,15 @@ class SignupViewModel(
     private val _state = MutableLiveData<SignupState>()
     val state: LiveData<SignupState> = _state
 
+
     init {
         _state.value = signupState
+    }
+
+    fun onImageChange(value: Bitmap?) {
+        _state.value = _state.value?.copy(
+            image = value
+        )
     }
 
     fun onFieldChange(value: String, type: String) {
@@ -61,21 +72,26 @@ class SignupViewModel(
 
     fun onLoginClick(state: SignupState, cb: () -> Unit) {
 
+        val requestUsername =  state.username.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val requestEmail =  state.email.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val requestPassword =  state.password.toRequestBody("multipart/form-data"
+            .toMediaTypeOrNull())
+
         val requestBody = SignupUserRequestDto(
-            state.username,
-            state.email,
-            state.password,
-            state.image
+            requestUsername,
+            requestEmail,
+            requestPassword,
+            state.image?.toMultipart()
         )
 
         viewModelScope.launch {
             try {
-                Log.d("SIGNUP", state.toString())
+                Timber.d(state.toString())
                 signupUserUseCase.invoke(requestBody)
                 loginUserUseCase.invoke(LoginUserDto(state.email, state.password))
                 cb()
             } catch (e: Throwable) {
-                e.message?.let { Log.d("DATA", it) }
+                Timber.e(e)
             }
         }
     }

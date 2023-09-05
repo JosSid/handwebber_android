@@ -43,7 +43,7 @@ android {
         create("mock") {
             dimension = "environment"
             applicationIdSuffix = ".mock"
-            buildConfigField("String", "SERVER_URL", "\"http://54.84.80.202/\"")
+            buildConfigField("String", "SERVER_URL", "\"http://10.0.2.2:3001/\"")
         }
 
         create("pre") {
@@ -84,6 +84,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+
+    implementation("com.jakewharton.timber:timber:5.0.1")
 
     //life cycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
