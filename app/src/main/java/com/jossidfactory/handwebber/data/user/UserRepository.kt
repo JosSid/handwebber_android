@@ -2,8 +2,8 @@ package com.jossidfactory.handwebber.data.user
 
 import com.jossidfactory.handwebber.data.user.local.model.UserLoggedEntity
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
-import com.jossidfactory.handwebber.data.user.remote.dto.SignupUserRequestDto
 import com.jossidfactory.handwebber.data.user.remote.dto.UserByIdDto
+import com.jossidfactory.handwebber.domain.user.model.SignupUserRequestModel
 
 interface UserRepository {
 
@@ -15,6 +15,6 @@ interface UserRepository {
 
     suspend fun getUserById(id: String): UserByIdDto
 
-    suspend fun postSignupUser(body: SignupUserRequestDto)
+    suspend fun postSignupUser(body: SignupUserRequestModel)
 
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jossidfactory.handwebber.data.user.local.AuthRepository
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class AppViewModel(
     private val authRepository: AuthRepository
@@ -30,7 +31,7 @@ class AppViewModel(
                     isLogged = isLogged
                 )
             } catch (e: Throwable) {
-                e.message?.let { Log.d("ERROR MESSAGE", it) }
+                e.message?.let { Timber.d(it) }
             }
         }
 

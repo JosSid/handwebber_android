@@ -1,4 +1,4 @@
-package com.jossidfactory.handwebber.screen.user.login
+package com.jossidfactory.handwebber.screen.user.signup
 
 import android.graphics.Bitmap
 

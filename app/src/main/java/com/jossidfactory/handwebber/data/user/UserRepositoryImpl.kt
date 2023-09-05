@@ -3,10 +3,11 @@ package com.jossidfactory.handwebber.data.user
 import com.jossidfactory.handwebber.data.user.local.AuthRepository
 import com.jossidfactory.handwebber.data.user.local.UserDao
 import com.jossidfactory.handwebber.data.user.local.model.UserLoggedEntity
+import com.jossidfactory.handwebber.data.user.mappers.toSignupUserRequestDto
 import com.jossidfactory.handwebber.data.user.remote.UserDataService
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
-import com.jossidfactory.handwebber.data.user.remote.dto.SignupUserRequestDto
 import com.jossidfactory.handwebber.data.user.remote.dto.UserByIdDto
+import com.jossidfactory.handwebber.domain.user.model.SignupUserRequestModel
 import timber.log.Timber
 
 class UserRepositoryImpl(
@@ -44,12 +45,15 @@ class UserRepositoryImpl(
         return user.result
     }
 
-    override suspend fun postSignupUser(body: SignupUserRequestDto) {
+    override suspend fun postSignupUser(body: SignupUserRequestModel) {
+
+        val bodyRequest = body.toSignupUserRequestDto()
+
         val result = userDataService.postSignupUser(
-            body.username,
-            body.email,
-            body.password,
-            body.image)
+            bodyRequest.username,
+            bodyRequest.email,
+            bodyRequest.password,
+            bodyRequest.image)
         Timber.d(result.toString())
     }
 

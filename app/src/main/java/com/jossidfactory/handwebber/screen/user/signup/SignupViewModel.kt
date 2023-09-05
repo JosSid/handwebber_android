@@ -1,4 +1,4 @@
-package com.jossidfactory.handwebber.screen.user.login
+package com.jossidfactory.handwebber.screen.user.signup
 
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
@@ -6,13 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
-import com.jossidfactory.handwebber.data.user.remote.dto.SignupUserRequestDto
+import com.jossidfactory.handwebber.domain.user.model.SignupUserRequestModel
 import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.SignupUserUseCase
-import com.jossidfactory.handwebber.utils.toMultipart
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
 import timber.log.Timber
 
 class SignupViewModel(
@@ -72,21 +69,15 @@ class SignupViewModel(
 
     fun onLoginClick(state: SignupState, cb: () -> Unit) {
 
-        val requestUsername =  state.username.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val requestEmail =  state.email.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val requestPassword =  state.password.toRequestBody("multipart/form-data"
-            .toMediaTypeOrNull())
-
-        val requestBody = SignupUserRequestDto(
-            requestUsername,
-            requestEmail,
-            requestPassword,
-            state.image?.toMultipart()
+        val requestBody = SignupUserRequestModel(
+            state.username,
+            state.email,
+            state.password,
+             state.image
         )
 
         viewModelScope.launch {
             try {
-                Timber.d(state.toString())
                 signupUserUseCase.invoke(requestBody)
                 loginUserUseCase.invoke(LoginUserDto(state.email, state.password))
                 cb()
