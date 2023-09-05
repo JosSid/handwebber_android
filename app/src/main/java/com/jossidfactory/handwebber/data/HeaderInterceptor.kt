@@ -27,6 +27,11 @@ class HeaderInterceptor(
 
 
     override fun intercept(chain: Interceptor.Chain): Response {
+        val requestUrl = chain.request()
+        val url = requestUrl.url.toString()
+
+        if(url.contains("signup") || url.contains("login")) token = null
+
         val request = chain.request()
             .newBuilder()
         token?.let {

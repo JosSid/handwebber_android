@@ -1,6 +1,5 @@
 package com.jossidfactory.handwebber.screen.user.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class LoginViewModel(
     private val loginUserUseCase: LoginUserUseCase
@@ -40,7 +40,7 @@ class LoginViewModel(
                 loginUserUseCase.invoke(body)
                 cb()
             }catch (e: Throwable) {
-                e.message?.let { Log.d("DATA", it) }
+                e.message?.let { Timber.d(it) }
             }
         }
     }
