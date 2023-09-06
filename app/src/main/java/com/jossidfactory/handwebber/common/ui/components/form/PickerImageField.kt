@@ -1,4 +1,4 @@
-package com.jossidfactory.handwebber.screen.components
+package com.jossidfactory.handwebber.common.ui.components.form
 
 import android.graphics.Bitmap
 import android.net.Uri

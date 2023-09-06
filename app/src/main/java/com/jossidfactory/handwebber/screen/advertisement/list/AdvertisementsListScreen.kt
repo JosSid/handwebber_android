@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import com.jossidfactory.handwebber.common.ui.components.error.ErrorView
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
@@ -33,31 +34,38 @@ fun AdvertisementsListScreen(
 
     val ctx = LocalContext.current
 
-        SearchBar(
-            modifier = Modifier.padding(paddingValues),
-            query = state.query,
-            onQueryChange = { advertisementsListViewModel.onQueryChange(it) },
-            onSearch = {
-                Toast.makeText(ctx, state.query, Toast.LENGTH_SHORT).show()
-            },
-            active = true,
-            onActiveChange = {},
-            placeholder = {
+        if(state.isError == null) {
+
+            SearchBar(
+                modifier = Modifier.padding(paddingValues),
+                query = state.query,
+                onQueryChange = { advertisementsListViewModel.onQueryChange(it) },
+                onSearch = {
+                    Toast.makeText(ctx, state.query, Toast.LENGTH_SHORT).show()
+                },
+                active = true,
+                onActiveChange = {},
+                placeholder = {
                     Text(text = "Search")
-            },
-            leadingIcon = {
-                Icon(imageVector = Icons.Default.Search, contentDescription = null)
-            },
-            trailingIcon = {
-                Button(onClick = { advertisementsListViewModel.onQueryChange("") }) {
-                    Text(text = "Clear")
+                },
+                leadingIcon = {
+                    Icon(imageVector = Icons.Default.Search, contentDescription = null)
+                },
+                trailingIcon = {
+                    Button(onClick = { advertisementsListViewModel.onQueryChange("") }) {
+                        Text(text = "Clear")
+                    }
                 }
+            ) {
+                AdvertisementList(
+                    state.advertisements,
+                    onItemClick
+                )
             }
-        ) {
-            AdvertisementList(
-                state.advertisements,
-                onItemClick
-            )
+        } else {
+            ErrorView(state.isError!!) {
+                advertisementsListViewModel.onResetError()
+            }
         }
     }
 

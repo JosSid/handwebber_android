@@ -18,11 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.jossidfactory.handwebber.R
-import com.jossidfactory.handwebber.screen.components.ButtonBase
-import com.jossidfactory.handwebber.screen.components.CheckboxBase
-import com.jossidfactory.handwebber.screen.components.PickerImageField
-import com.jossidfactory.handwebber.screen.components.TextFieldBase
-import com.jossidfactory.handwebber.screen.components.TextFieldPassword
+import com.jossidfactory.handwebber.common.ui.components.button.ButtonBase
+import com.jossidfactory.handwebber.common.ui.components.form.CheckboxBase
+import com.jossidfactory.handwebber.common.ui.components.form.PickerImageField
+import com.jossidfactory.handwebber.common.ui.components.form.TextFieldBase
+import com.jossidfactory.handwebber.common.ui.components.form.TextFieldPassword
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

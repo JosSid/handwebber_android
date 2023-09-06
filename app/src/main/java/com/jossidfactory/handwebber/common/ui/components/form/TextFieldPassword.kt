@@ -1,4 +1,4 @@
-package com.jossidfactory.handwebber.screen.components
+package com.jossidfactory.handwebber.common.ui.components.form
 
 
 import androidx.compose.foundation.text.KeyboardOptions

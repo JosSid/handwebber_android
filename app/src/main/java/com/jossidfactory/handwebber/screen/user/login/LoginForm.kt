@@ -16,9 +16,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.jossidfactory.handwebber.screen.components.ButtonBase
-import com.jossidfactory.handwebber.screen.components.TextFieldBase
-import com.jossidfactory.handwebber.screen.components.TextFieldPassword
+import com.jossidfactory.handwebber.common.ui.components.button.ButtonBase
+import com.jossidfactory.handwebber.common.ui.components.form.TextFieldBase
+import com.jossidfactory.handwebber.common.ui.components.form.TextFieldPassword
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

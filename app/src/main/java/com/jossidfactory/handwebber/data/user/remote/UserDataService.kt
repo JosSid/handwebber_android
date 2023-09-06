@@ -22,7 +22,6 @@ interface UserDataService {
     @POST("users/tokenTest")
     suspend fun postTokenTest(): String
 
-
     @Multipart
     @POST("users/signup")
     suspend fun postSignupUser(
