@@ -19,6 +19,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.jossidfactory.handwebber.R
 import com.jossidfactory.handwebber.common.ui.components.button.ButtonBase
+import com.jossidfactory.handwebber.common.ui.components.error.ErrorView
 import com.jossidfactory.handwebber.common.ui.components.form.CheckboxBase
 import com.jossidfactory.handwebber.common.ui.components.form.PickerImageField
 import com.jossidfactory.handwebber.common.ui.components.form.TextFieldBase
@@ -37,63 +38,67 @@ fun SignupForm(
         SignupState()
     )
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        item {
+    if (state.isError == null) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            item {
 
-            Text(text = "Back to login",
-                modifier = Modifier
-                    .padding(5.dp)
-                    .clickable { changeForm() },
-                color = MaterialTheme.colorScheme.primary
-            )
+                Text(
+                    text = "Back to login",
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .clickable { changeForm() },
+                    color = MaterialTheme.colorScheme.primary
+                )
 
-            TextFieldBase(text = stringResource(id = R.string.username),
-                textValue = state.username ,
-                onValueChange = { signupViewModel.onFieldChange(it, "Username") }
-            )
+                TextFieldBase(text = stringResource(id = R.string.username),
+                    textValue = state.username,
+                    onValueChange = { signupViewModel.onFieldChange(it, SignupFormFields.USERNAME) }
+                )
 
-            TextFieldBase(text = stringResource(id = R.string.email),
-                textValue = state.email ,
-                keyboardType = KeyboardType.Email,
-                onValueChange = { signupViewModel.onFieldChange(it, "Email") }
-            )
+                TextFieldBase(text = stringResource(id = R.string.email),
+                    textValue = state.email,
+                    keyboardType = KeyboardType.Email,
+                    onValueChange = { signupViewModel.onFieldChange(it, SignupFormFields.EMAIL) }
+                )
 
-            TextFieldPassword(text = stringResource(id = R.string.password) + " (min 8 characters)",
-                textValue = state.password,
-                onValueChange = { signupViewModel.onFieldChange(it, "Password") }
-            )
+                TextFieldPassword(text = stringResource(id = R.string.password) + " (min 8 characters)",
+                    textValue = state.password,
+                    onValueChange = { signupViewModel.onFieldChange(it, SignupFormFields.PASSWORD) }
+                )
 
-            TextFieldPassword(text = "Confirm " + stringResource(id = R.string.password),
-                textValue = state.confirmPassword,
-                onValueChange = { signupViewModel.onFieldChange(it, "Confirm password") }
-            )
+                TextFieldPassword(text = "Confirm " + stringResource(id = R.string.password),
+                    textValue = state.confirmPassword,
+                    onValueChange = { signupViewModel.onFieldChange(it, SignupFormFields.CONFIRM_PASSWORD) }
+                )
 
-            PickerImageField { signupViewModel.onImageChange(it) }
+                PickerImageField { signupViewModel.onImageChange(it) }
 
-            Spacer(modifier = Modifier.padding(3.dp))
+                Spacer(modifier = Modifier.padding(3.dp))
 
-            CheckboxBase(
-                text = "Accept conditions",
-                checked = state.checked
-            ) { signupViewModel.onCheckedChange() }
+                CheckboxBase(
+                    text = "Accept conditions",
+                    checked = state.checked
+                ) { signupViewModel.onCheckedChange() }
 
-            ButtonBase(
-                text = "Signup",
-                isEnabled = signupViewModel.isEnabledButton(state)
-            ) {
-                signupViewModel.onLoginClick(state) {
-                    onLoginNavigate()
+                ButtonBase(
+                    text = "Signup",
+                    isEnabled = signupViewModel.isEnabledButton(state)
+                ) {
+                    signupViewModel.onLoginClick(state) {
+                        onLoginNavigate()
+                    }
                 }
             }
         }
+    } else {
+        ErrorView(state.isError!!) {
+            signupViewModel.onResetError()
+        }
     }
-
-
-    
 }

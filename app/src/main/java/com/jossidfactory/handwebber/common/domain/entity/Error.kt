@@ -5,4 +5,7 @@ sealed class Error(val message: String) {
     class EmptySearch(message: String) : Error(message)
     class Connectivity(message: String) : Error(message)
     class Unknown(message: String) : Error(message)
+    class Unauthorized(message: String): Error(message)
+    class Conflict(message: String) : Error(message)
+    class Unprocesable(message: String) : Error(message)
 }

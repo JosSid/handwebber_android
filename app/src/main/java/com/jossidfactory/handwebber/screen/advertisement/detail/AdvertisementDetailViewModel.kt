@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jossidfactory.handwebber.common.domain.mappers.logError
+import com.jossidfactory.handwebber.common.domain.mappers.toError
 import com.jossidfactory.handwebber.domain.advertisement.usecase.GetAdvertisementByIdUseCase
 import kotlinx.coroutines.launch
 
@@ -26,10 +28,20 @@ class AdvertisementDetailViewModel(
                     advertisement = response.result
                 )
             } catch (e: Throwable) {
-                println("")
+                _state.value = _state.value?.copy(
+                    isError = e.toError()
+                )
+                e.logError()
             }
 
         }
+    }
+
+    fun onResetError(id: String) {
+        _state.value = _state.value?.copy(
+            isError = null
+        )
+        getAdvertisementById(id)
     }
 
 }

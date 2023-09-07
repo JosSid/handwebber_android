@@ -20,3 +20,18 @@ fun AdvertisementDto.toAdvertisementModel() = AdvertisementModel(
     update = update,
     creation = creation
 )
+
+//fun AdvertisementDto.toAdvertisementEntity() = AdvertisementEntity(
+//    id = id,
+//    idUser = userId,
+//    creation = creation,
+//    name = name,
+//    custom = custom,
+//    description = description,
+//    image = image,
+//    price = price,
+//    tags = tags,
+//    stock = stock,
+//    subscriptions = subscriptions,
+//    update = update
+//)

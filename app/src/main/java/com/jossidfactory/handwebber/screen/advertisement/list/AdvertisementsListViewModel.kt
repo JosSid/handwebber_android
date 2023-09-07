@@ -45,6 +45,7 @@ class AdvertisementsListViewModel(
                 _state.value = _state.value?.copy(
                     isError = e.toError()
                 )
+                e.logError()
             }
         }
 

@@ -36,6 +36,9 @@ fun ErrorView(
         is Error.EmptyView,
         is Error.EmptySearch,
         is Error.Connectivity,
+        is Error.Unauthorized,
+        is Error.Conflict,
+        is Error.Unprocesable,
         is Error.Unknown -> {
             GenericErrorView(
                 title = stringResource(
@@ -48,6 +51,15 @@ fun ErrorView(
                         }
                         is Error.Connectivity -> {
                             R.string.error_empty_title
+                        }
+                        is Error.Unauthorized -> {
+                            R.string.error_unauthorized_title
+                        }
+                        is Error.Conflict -> {
+                            R.string.error_conflict_title
+                        }
+                        is Error.Unprocesable -> {
+                            R.string.error_unprocesable_title
                         }
                         else -> {
                             R.string.error_unknown_title
@@ -64,6 +76,15 @@ fun ErrorView(
                         }
                         is Error.Connectivity -> {
                             R.string.error_empty_text
+                        }
+                        is Error.Unauthorized -> {
+                            R.string.error_unauthorized_text
+                        }
+                        is Error.Conflict -> {
+                            R.string.error_conflict_text
+                        }
+                        is Error.Unprocesable -> {
+                            R.string.error_unprocesable_text
                         }
                         else -> {
                             R.string.error_unknown_text

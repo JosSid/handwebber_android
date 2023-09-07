@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jossidfactory.handwebber.common.domain.mappers.logError
+import com.jossidfactory.handwebber.common.domain.mappers.toError
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class LoginViewModel(
     private val loginUserUseCase: LoginUserUseCase
@@ -40,7 +41,10 @@ class LoginViewModel(
                 loginUserUseCase.invoke(body)
                 cb()
             }catch (e: Throwable) {
-                e.message?.let { Timber.d(it) }
+                _state.value = _state.value?.copy(
+                    isError = e.toError()
+                )
+                e.logError()
             }
         }
     }
@@ -49,5 +53,11 @@ class LoginViewModel(
         val emailPattern = Regex("^\\S+@\\S+\\.\\S+\$")
 
         return emailPattern.matches(email) && password.length >= 4
+    }
+
+    fun onResetError() {
+        _state.value = _state.value?.copy(
+            isError = null
+        )
     }
 }

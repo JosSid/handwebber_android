@@ -5,12 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jossidfactory.handwebber.common.domain.mappers.logError
+import com.jossidfactory.handwebber.common.domain.mappers.toError
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 import com.jossidfactory.handwebber.domain.user.model.SignupUserRequestModel
 import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.SignupUserUseCase
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class SignupViewModel(
     private val signupUserUseCase: SignupUserUseCase,
@@ -32,27 +33,27 @@ class SignupViewModel(
         )
     }
 
-    fun onFieldChange(value: String, type: String) {
+    fun onFieldChange(value: String, type: SignupFormFields) {
         when (type) {
-            "Username" -> {
+            SignupFormFields.USERNAME-> {
                 _state.value = _state.value?.copy(
                     username = value
                 )
             }
 
-            "Email" -> {
+            SignupFormFields.EMAIL -> {
                 _state.value = _state.value?.copy(
                     email = value
                 )
             }
 
-            "Password" -> {
+            SignupFormFields.PASSWORD -> {
                 _state.value = _state.value?.copy(
                     password = value
                 )
             }
 
-            "Confirm password" -> {
+            SignupFormFields.CONFIRM_PASSWORD -> {
                 _state.value = _state.value?.copy(
                     confirmPassword = value
                 )
@@ -82,7 +83,10 @@ class SignupViewModel(
                 loginUserUseCase.invoke(LoginUserDto(state.email, state.password))
                 cb()
             } catch (e: Throwable) {
-                Timber.e(e)
+                _state.value = _state.value?.copy(
+                    isError = e.toError()
+                )
+                e.logError()
             }
         }
     }
@@ -101,5 +105,11 @@ class SignupViewModel(
 
         return emailPattern.matches(email) && password.length >= 8 && password == confirmPassword
                 && username.isNotEmpty() && checked
+    }
+
+    fun onResetError() {
+        _state.value = _state.value?.copy(
+            isError = null
+        )
     }
 }

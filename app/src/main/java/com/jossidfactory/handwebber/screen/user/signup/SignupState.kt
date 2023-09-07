@@ -1,6 +1,7 @@
 package com.jossidfactory.handwebber.screen.user.signup
 
 import android.graphics.Bitmap
+import com.jossidfactory.handwebber.common.domain.entity.Error
 
 data class SignupState(
     val username: String = "",
@@ -8,5 +9,6 @@ data class SignupState(
     val password: String = "",
     val confirmPassword: String = "",
     val image: Bitmap? = null,
-    val checked: Boolean = false
+    val checked: Boolean = false,
+    val isError: Error? = null
 )
