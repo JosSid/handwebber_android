@@ -18,13 +18,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.jossidfactory.handwebber.R
 import com.jossidfactory.handwebber.navigation.Screen
+import kotlinx.coroutines.Job
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarApp(isLogged: Boolean,
-              currentRoute: String?,
-              navController: NavController,
-              onLogOut: () -> Unit) {
+fun TopBarApp(
+    isLogged: Boolean,
+    currentRoute: String?,
+    navController: NavController,
+    onClickMenu: () -> Job,
+    onLogOut: () -> Unit) {
 
     val titleScreen = currentRoute?.split("_")?.first()?.capitalize() ?: ""
 
@@ -46,7 +49,7 @@ fun TopBarApp(isLogged: Boolean,
                     )
                 }
             } else {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { onClickMenu() }) {
                     Icon(
                         imageVector = Icons.Default.Menu,
                         contentDescription = "Menu"
