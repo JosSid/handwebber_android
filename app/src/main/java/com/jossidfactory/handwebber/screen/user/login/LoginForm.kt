@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -59,11 +58,9 @@ fun LoginForm(
                 textValue = state.password,
                 onValueChange = { loginViewModel.onPasswordChange(it) }
             )
-
-            Spacer(modifier = Modifier.padding(3.dp))
-
             ButtonBase(
                 text = "Login",
+                modifier = Modifier.padding(top = 8.dp),
                 isEnabled = loginViewModel.isEnabledButton(state.email, state.password)
             ) {
                 loginViewModel.onLoginClick(state.email, state.password) {

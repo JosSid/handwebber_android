@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 
 @Composable
 fun NavigationGraph(
-    navController: NavController, paddingValues: PaddingValues, cb: () -> Unit
+    navController: NavController, paddingValues: PaddingValues, onLogOut: () -> Unit, cb: () -> Unit
 ) {
     NavHost(navController = navController as NavHostController,
         startDestination = Screen.AdvertisementsListScreen.route,
@@ -16,5 +16,6 @@ fun NavigationGraph(
         addAdvertisementsListScreen(navController, paddingValues)
         addAdvertisementDetailScreen(navController, paddingValues)
         addLoginScreen(navController, paddingValues, cb)
+        addProfileScreen(navController,paddingValues, onLogOut)
     }
 }

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SearchBar
@@ -16,6 +15,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import com.jossidfactory.handwebber.common.ui.components.button.ButtonBase
 import com.jossidfactory.handwebber.common.ui.components.error.ErrorView
 import org.koin.androidx.compose.koinViewModel
 
@@ -52,8 +53,10 @@ fun AdvertisementsListScreen(
                     Icon(imageVector = Icons.Default.Search, contentDescription = null)
                 },
                 trailingIcon = {
-                    Button(onClick = { advertisementsListViewModel.onQueryChange("") }) {
-                        Text(text = "Clear")
+                    ButtonBase(
+                        text = "Clear",
+                        modifier = Modifier.padding(end = 10.dp),
+                        ) { advertisementsListViewModel.onQueryChange("")
                     }
                 }
             ) {

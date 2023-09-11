@@ -15,8 +15,13 @@
     <string name="error_retry">Intentar de nuevo</string>
     <string name="error_image_description">Error imagen</string>
     <string name="no_results_available">No hay resultados disponibles</string>
-    <string name="error_conflict_title">Email registrado</string>
-    <string name="error_conflict_text">Este email ya tiene una cuenta en Handwebber</string>
+    <string name="error_conflict_title">Datos registrados</string>
+    <string name="error_conflict_text">Este nombre de usuario o email, o ambos ya estan registrados en Handwebber</string>
     <string name="error_unprocesable_title">Datos no validos</string>
-    <string name="error_unprocesable_text">El nombre de usuario solo puede contener letras y numeros.\nSi esta cargando un archivo compruebe que sea un formato valido de imagen.</string>
+    <string name="error_unprocesable_text">El nombre de usuario solo puede contener letras y numeros.\nCompruebe si el email introducido es correcto.\nSi esta cargando un archivo compruebe que sea un formato valido de imagen.</string>
+    <string name="delete_account">Borrar cuenta</string>
+    <string name="confirm_action">Confirmar accion</string>
+    <string name="confirm_delete_text">Estas seguro de querer borrar tu cuenta?</string>
+    <string name="deleted_user_title">Cuenta eliminada</string>
+    <string name="deleted_user_text">Esperamos volver a verte pronto</string>
 </resources>

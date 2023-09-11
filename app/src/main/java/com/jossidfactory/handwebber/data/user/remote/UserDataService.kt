@@ -1,11 +1,11 @@
 package com.jossidfactory.handwebber.data.user.remote
 
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
-import com.jossidfactory.handwebber.data.user.remote.dto.SignupUserResponseDto
-import com.jossidfactory.handwebber.data.user.remote.dto.UserByIdResponseDto
+import com.jossidfactory.handwebber.data.user.remote.dto.UserResponseDto
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -14,7 +14,7 @@ import retrofit2.http.Path
 
 interface UserDataService {
     @GET("users/{id}")
-    suspend fun getUserById(@Path("id") id: String): UserByIdResponseDto
+    suspend fun getUserById(@Path("id") id: String): UserResponseDto
 
     @POST("users/login")
     suspend fun postLoginUser(@Body body: LoginUserDto): String
@@ -29,6 +29,9 @@ interface UserDataService {
         @Part("mail") email: RequestBody,
         @Part("password") password: RequestBody,
         @Part image: MultipartBody.Part?
-    ): SignupUserResponseDto
+    ): UserResponseDto
+
+    @DELETE("users/{id}")
+    suspend fun deleteUser(@Path("id") id: String): UserResponseDto
 
 }

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.jossidfactory.handwebber.navigation.NavigationGraph
+import com.jossidfactory.handwebber.navigation.Screen
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -38,7 +39,13 @@ fun LayoutApp(
         drawerState = drawerState,
         drawerContent = {
                         NavigationDrawerApp(
-                            navController = navController
+                            state.isLogged,
+                            navController = navController,
+                            onClickCloseMenu = {
+                                scope.launch {
+                                    drawerState.close()
+                                }
+                            }
                         )
         },
         scrimColor = MaterialTheme.colorScheme.primary
@@ -61,7 +68,11 @@ fun LayoutApp(
 
             NavigationGraph(
                 navController = navController,
-                paddingValues = paddingValues
+                paddingValues = paddingValues,
+                onLogOut = {
+                    appViewModel.logOutState()
+                    navController.navigate(Screen.AdvertisementsListScreen.route)
+                }
             ) {
                 appViewModel.logInState {
                     navController

@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.jossidfactory.handwebber.screen.advertisement.detail.AdvertisementDetailScreen
 import com.jossidfactory.handwebber.screen.advertisement.list.AdvertisementsListScreen
 import com.jossidfactory.handwebber.screen.user.login.LoginScreen
+import com.jossidfactory.handwebber.screen.user.profile.ProfileScreen
 
 fun NavGraphBuilder.addAdvertisementsListScreen(navController: NavController, paddingValues:
 PaddingValues){
@@ -37,13 +38,25 @@ PaddingValues) {
 }
 
 fun NavGraphBuilder.addLoginScreen(
-    navController: NavController, paddingValues:
-    PaddingValues, cb: () -> Unit
+    navController: NavController,
+    paddingValues: PaddingValues,
+    cb: () -> Unit
 ) {
     composable(Screen.LoginScreen.route) {
         LoginScreen(paddingValues = paddingValues) {
             cb()
 
         }
+    }
+}
+
+fun NavGraphBuilder.addProfileScreen(
+    navController: NavController,
+    paddingValues: PaddingValues,
+    onLogOut: () -> Unit
+) {
+    composable(Screen.ProfileScreen.route) {
+        ProfileScreen(navController = navController, paddingValues = paddingValues, onLogOut =
+        onLogOut)
     }
 }

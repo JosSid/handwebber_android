@@ -2,6 +2,7 @@ package com.jossidfactory.handwebber.di
 
 import com.jossidfactory.handwebber.domain.advertisement.usecase.GetAdvertisementByIdUseCase
 import com.jossidfactory.handwebber.domain.advertisement.usecase.GetAdvertisementsListUseCase
+import com.jossidfactory.handwebber.domain.user.usecase.DeleteUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.GetLoggedUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.SignupUserUseCase
@@ -17,4 +18,6 @@ val DomainModule = module {
     single { GetLoggedUserUseCase(get())}
 
     single { SignupUserUseCase(get()) }
+
+    single { DeleteUserUseCase(get()) }
 }

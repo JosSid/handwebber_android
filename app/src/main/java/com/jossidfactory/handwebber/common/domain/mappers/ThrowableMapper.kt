@@ -15,10 +15,11 @@ const val http422 = 422
 fun Throwable.toError(): Error = when (this) {
     is IOException -> Error.Connectivity(this.message ?: "")
     is HttpException -> {
+        Timber.d(this.response()?.errorBody().toString())
         when (this.code()) {
             http401 -> Error.Unauthorized("${this.code()} - unauthorized")
             http404 -> Error.EmptyView("${this.code()} - empty-view")
-            http409 -> Error.Conflict("${this.code()} - mail already registered")
+            http409 -> Error.Conflict("${this.code()} - ${this.message}")
             http422 -> Error.Unprocesable("${this.code()} - unprocesable entity")
             else -> Error.Unknown("${this.code()} - ${this.message ?: " "}")
         }
