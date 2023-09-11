@@ -9,6 +9,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
@@ -28,6 +29,17 @@ interface UserDataService {
         @Part("username") username: RequestBody,
         @Part("mail") email: RequestBody,
         @Part("password") password: RequestBody,
+        @Part image: MultipartBody.Part?
+    ): UserResponseDto
+
+    @Multipart
+    @PUT("users/{id}")
+    suspend fun updateUser(
+        @Path("id") id: String,
+        @Part("username") username: RequestBody?,
+        @Part("mail") email: RequestBody?,
+        @Part("password") password: RequestBody?,
+        @Part("subscriptions") subscriptions: RequestBody?,
         @Part image: MultipartBody.Part?
     ): UserResponseDto
 

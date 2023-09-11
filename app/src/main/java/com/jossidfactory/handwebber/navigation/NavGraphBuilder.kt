@@ -8,6 +8,7 @@ import com.jossidfactory.handwebber.screen.advertisement.detail.AdvertisementDet
 import com.jossidfactory.handwebber.screen.advertisement.list.AdvertisementsListScreen
 import com.jossidfactory.handwebber.screen.user.login.LoginScreen
 import com.jossidfactory.handwebber.screen.user.profile.ProfileScreen
+import com.jossidfactory.handwebber.screen.user.update.UpdateUserForm
 
 fun NavGraphBuilder.addAdvertisementsListScreen(navController: NavController, paddingValues:
 PaddingValues){
@@ -58,5 +59,14 @@ fun NavGraphBuilder.addProfileScreen(
     composable(Screen.ProfileScreen.route) {
         ProfileScreen(navController = navController, paddingValues = paddingValues, onLogOut =
         onLogOut)
+    }
+}
+
+fun NavGraphBuilder.addUpdateUserScreen(
+    navController: NavController,
+    paddingValues: PaddingValues
+) {
+    composable(Screen.UpdateUserScreen.route) {
+        UpdateUserForm(navController = navController, paddingValues = paddingValues)
     }
 }

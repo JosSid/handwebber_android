@@ -6,6 +6,7 @@ import com.jossidfactory.handwebber.screen.layout.AppViewModel
 import com.jossidfactory.handwebber.screen.user.login.LoginViewModel
 import com.jossidfactory.handwebber.screen.user.profile.ProfileViewModel
 import com.jossidfactory.handwebber.screen.user.signup.SignupViewModel
+import com.jossidfactory.handwebber.screen.user.update.UpdateUserViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -16,4 +17,5 @@ val ViewModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SignupViewModel(get(), get()) }
     viewModel { ProfileViewModel(get(), get()) }
+    viewModel { UpdateUserViewModel(get(), get()) }
 }

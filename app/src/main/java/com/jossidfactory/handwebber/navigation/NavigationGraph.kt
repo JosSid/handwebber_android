@@ -17,5 +17,6 @@ fun NavigationGraph(
         addAdvertisementDetailScreen(navController, paddingValues)
         addLoginScreen(navController, paddingValues, cb)
         addProfileScreen(navController,paddingValues, onLogOut)
+        addUpdateUserScreen(navController, paddingValues)
     }
 }

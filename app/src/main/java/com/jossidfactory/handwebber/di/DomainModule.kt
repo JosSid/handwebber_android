@@ -6,6 +6,7 @@ import com.jossidfactory.handwebber.domain.user.usecase.DeleteUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.GetLoggedUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.LoginUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.SignupUserUseCase
+import com.jossidfactory.handwebber.domain.user.usecase.UpdateUserUseCase
 import org.koin.dsl.module
 
 val DomainModule = module {
@@ -20,4 +21,6 @@ val DomainModule = module {
     single { SignupUserUseCase(get()) }
 
     single { DeleteUserUseCase(get()) }
+
+    single { UpdateUserUseCase(get()) }
 }

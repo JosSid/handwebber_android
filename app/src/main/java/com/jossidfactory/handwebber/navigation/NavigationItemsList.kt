@@ -20,10 +20,16 @@ fun NavigationItemsList(
     onClickCloseMenu: () -> Job
 ) {
     val navigationItems = if(isLogged) {
-        listOf(NavigationItemModel(
+        listOf(
+            NavigationItemModel(
             "Profile",
             Screen.ProfileScreen
-        ))
+            ),
+            NavigationItemModel(
+                "Update profile",
+                Screen.UpdateUserScreen
+            )
+        )
     }else{
         listOf(NavigationItemModel(
             "Login/Signup",
