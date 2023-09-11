@@ -12,13 +12,5 @@ data class NavigationItemModel(
         val route: Screen
 )
 
-val navigationItems = listOf(
-        NavigationItemModel(
-                "Login/Signup",
-                Screen.LoginScreen
-        ),
-        NavigationItemModel(
-                "Profile",
-                Screen.ProfileScreen
-        ),
-)
+
+

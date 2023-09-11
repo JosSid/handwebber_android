@@ -1,13 +1,10 @@
 package com.jossidfactory.handwebber.screen.layout
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,7 +14,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,10 +24,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.jossidfactory.handwebber.R
-import com.jossidfactory.handwebber.navigation.navigationItems
+import com.jossidfactory.handwebber.navigation.NavigationItemsList
 import com.jossidfactory.handwebber.screen.user.profile.ProfileDrawer
 import kotlinx.coroutines.Job
 
@@ -75,24 +70,13 @@ fun NavigationDrawerApp(
             ProfileDrawer(isLogged = isLogged)
         }
         Divider()
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .clickable { onClickCloseMenu() },
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
-        ) {
-            navigationItems.forEach {
-                Text(
-                    text = it.name,
-                    modifier = Modifier.clickable {
-                        navController.navigate(it.route.route)
-                        onClickCloseMenu()
-                    },
-                    fontSize = 24.sp,
-                    color = MaterialTheme.colorScheme.primary)
-            }
-        }
+
+        NavigationItemsList(
+            isLogged = isLogged,
+            navController = navController,
+            onClickCloseMenu = onClickCloseMenu
+        )
+
     }
 }
 
