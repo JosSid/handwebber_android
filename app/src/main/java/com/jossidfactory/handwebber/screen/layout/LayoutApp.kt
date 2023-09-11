@@ -61,6 +61,7 @@ fun LayoutApp(
                     drawerState.open()
                 }}) {
                     appViewModel.logOutState()
+                    navController.navigate(Screen.AdvertisementsListScreen.route)
                 }
             },
 
