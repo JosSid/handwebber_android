@@ -89,7 +89,8 @@ fun UpdateUserForm(
                 PickerImageField { updateUserViewModel.onImageChange(it) }
 
                 ButtonBase(
-                    text = "Update"
+                    text = "Update",
+                    isEnabled = updateUserViewModel.isEnabledButton(state)
                 ) {
                         isChangedProfile()
                         updateUserViewModel.onUpdateClick(state) {

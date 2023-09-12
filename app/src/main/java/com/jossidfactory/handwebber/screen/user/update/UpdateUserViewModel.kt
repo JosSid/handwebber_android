@@ -86,6 +86,18 @@ class UpdateUserViewModel(
         }
     }
 
+    fun isEnabledButton(state: UpdateUserState): Boolean {
+
+        val emailPattern = Regex("^\\S+@\\S+\\.\\S+\$")
+
+        val email = state.email != "" && emailPattern.matches(state.email) || state.email == ""
+
+        val password = (state.password.length == 0 && state.password == state.confirmPassword
+                || state.password.length >= 8 && state.password == state.confirmPassword)
+
+        return email && password
+    }
+
     fun onResetError() {
         _state.value = _state.value?.copy(
             isError = null
