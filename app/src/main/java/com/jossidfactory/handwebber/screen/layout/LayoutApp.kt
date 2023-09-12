@@ -10,7 +10,10 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -32,6 +35,10 @@ fun LayoutApp(
         AppState()
     )
 
+    var isChangedProfile by rememberSaveable {
+        mutableStateOf(false)
+    }
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -40,13 +47,13 @@ fun LayoutApp(
         drawerContent = {
                         NavigationDrawerApp(
                             state.isLogged,
-                            navController = navController,
-                            onClickCloseMenu = {
-                                scope.launch {
-                                    drawerState.close()
-                                }
+                            isChangedProfile,
+                            navController = navController
+                        ) {
+                            scope.launch {
+                                drawerState.close()
                             }
-                        )
+                        }
         },
         scrimColor = MaterialTheme.colorScheme.primary
     ) {
@@ -70,6 +77,7 @@ fun LayoutApp(
             NavigationGraph(
                 navController = navController,
                 paddingValues = paddingValues,
+                isChangedProfile = { isChangedProfile = !isChangedProfile },
                 onLogOut = {
                     appViewModel.logOutState()
                     navController.navigate(Screen.AdvertisementsListScreen.route)

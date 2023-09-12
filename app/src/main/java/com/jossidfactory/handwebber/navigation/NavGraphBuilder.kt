@@ -64,9 +64,12 @@ fun NavGraphBuilder.addProfileScreen(
 
 fun NavGraphBuilder.addUpdateUserScreen(
     navController: NavController,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    isChangedProfile: () -> Unit
 ) {
     composable(Screen.UpdateUserScreen.route) {
-        UpdateUserForm(navController = navController, paddingValues = paddingValues)
+        UpdateUserForm(
+            navController = navController, paddingValues = paddingValues,
+            isChangedProfile = isChangedProfile)
     }
 }

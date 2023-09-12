@@ -22,13 +22,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.jossidfactory.handwebber.R
 import com.jossidfactory.handwebber.common.ui.components.button.ButtonBase
+import com.jossidfactory.handwebber.navigation.Screen
 
 @Composable
 fun ProfileView(
     state: ProfileState,
+    navController: NavController,
     paddingValues: PaddingValues,
     onConfirm: () -> Unit
 ) {
@@ -78,6 +81,13 @@ fun ProfileView(
 
             ButtonBase(text = stringResource(R.string.delete_account)) {
                 onConfirm()
+            }
+
+            ButtonBase(
+                text = stringResource(R.string.update_account),
+                modifier = Modifier.padding(top = 12.dp)
+                ) {
+                navController.navigate(Screen.UpdateUserScreen.route)
             }
         }
 

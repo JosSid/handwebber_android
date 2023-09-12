@@ -28,6 +28,7 @@ fun UpdateUserForm(
     updateUserViewModel: UpdateUserViewModel = koinViewModel(),
     navController: NavController,
     paddingValues: PaddingValues,
+    isChangedProfile: () -> Unit,
 ) {
 
     val state: UpdateUserState by updateUserViewModel.state.observeAsState(
@@ -90,14 +91,16 @@ fun UpdateUserForm(
                 ButtonBase(
                     text = "Update"
                 ) {
+                        isChangedProfile()
                         updateUserViewModel.onUpdateClick(state) {
+                            isChangedProfile()
                             navController.navigate(Screen.ProfileScreen.route)
                         }
                     }
                 }
             }
 
-    }else {
+    } else {
         ErrorView(state.isError!!) {
             updateUserViewModel.onResetError()
         }

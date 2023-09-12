@@ -24,7 +24,8 @@ fun ProfileScreen(
     val state: ProfileState by profileViewModel.state.observeAsState(ProfileState())
 
     when (state.view) {
-        ProfileViewState.IsProfile -> ProfileView(state = state, paddingValues = paddingValues) {
+        ProfileViewState.IsProfile -> ProfileView(state = state, navController = navController,
+                paddingValues = paddingValues) {
             profileViewModel.handleView(ProfileViewState.IsConfirm)
         }
 

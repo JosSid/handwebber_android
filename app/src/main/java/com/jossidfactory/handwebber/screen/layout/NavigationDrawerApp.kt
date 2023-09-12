@@ -34,6 +34,7 @@ import kotlinx.coroutines.Job
 @Composable
 fun NavigationDrawerApp(
     isLogged: Boolean,
+    isChangedProfile: Boolean,
     navController: NavController,
     onClickCloseMenu: () -> Job,
 ) {
@@ -67,7 +68,7 @@ fun NavigationDrawerApp(
         }
         Divider()
         if(isLogged){
-            ProfileDrawer(isLogged = isLogged)
+            ProfileDrawer(isLogged = isLogged, isChangedProfile = isChangedProfile)
         }
         Divider()
 
@@ -83,7 +84,9 @@ fun NavigationDrawerApp(
 @Preview()
 @Composable
 fun ShowNavigationDrawerApp() {
-    NavigationDrawerApp(isLogged = true, navController = NavController(LocalContext.current)){
+    NavigationDrawerApp(isLogged = true, isChangedProfile = true, navController =
+    NavController
+        (LocalContext.current)){
         Job()
     }
 }

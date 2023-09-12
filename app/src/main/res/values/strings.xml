@@ -24,4 +24,5 @@
     <string name="confirm_delete_text">Estas seguro de querer borrar tu cuenta?</string>
     <string name="deleted_user_title">Cuenta eliminada</string>
     <string name="deleted_user_text">Esperamos volver a verte pronto</string>
+    <string name="update_account">Actualizar cuenta</string>
 </resources>
