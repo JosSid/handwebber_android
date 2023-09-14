@@ -23,5 +23,6 @@ fun NavigationGraph(
         addLoginScreen(navController, paddingValues, cb)
         addProfileScreen(navController,paddingValues, onLogOut)
         addUpdateUserScreen(navController, paddingValues, isChangedProfile)
+        addFavoritesListScreen(navController, paddingValues)
     }
 }

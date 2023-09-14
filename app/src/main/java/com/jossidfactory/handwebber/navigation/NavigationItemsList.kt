@@ -28,6 +28,10 @@ fun NavigationItemsList(
             NavigationItemModel(
                 "Update profile",
                 Screen.UpdateUserScreen
+            ),
+            NavigationItemModel(
+                "Favorites",
+                Screen.FavoritsListScreen
             )
         )
     }else{

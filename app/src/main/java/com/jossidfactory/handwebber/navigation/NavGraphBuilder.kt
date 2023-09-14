@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.jossidfactory.handwebber.screen.advertisement.detail.AdvertisementDetailScreen
 import com.jossidfactory.handwebber.screen.advertisement.list.AdvertisementsListScreen
+import com.jossidfactory.handwebber.screen.user.favorites.FavoritesListScreen
 import com.jossidfactory.handwebber.screen.user.login.LoginScreen
 import com.jossidfactory.handwebber.screen.user.profile.ProfileScreen
 import com.jossidfactory.handwebber.screen.user.update.UpdateUserForm
@@ -71,5 +72,21 @@ fun NavGraphBuilder.addUpdateUserScreen(
         UpdateUserForm(
             navController = navController, paddingValues = paddingValues,
             isChangedProfile = isChangedProfile)
+    }
+}
+
+fun NavGraphBuilder.addFavoritesListScreen(
+    navController: NavController,
+    paddingValues: PaddingValues,
+) {
+    composable(Screen.FavoritsListScreen.route) {
+        FavoritesListScreen(paddingValues = paddingValues){ id ->
+            navController.navigate("advertisement_detail_screen/$id")
+            {
+                popUpTo(Screen.AdvertisementsListScreen.route) {
+                    inclusive = true
+                }
+            }
+        }
     }
 }
