@@ -25,13 +25,13 @@ PaddingValues){
 }
 
 fun NavGraphBuilder.addAdvertisementDetailScreen(navController: NavController,paddingValues:
-PaddingValues) {
+PaddingValues, isLogged: Boolean) {
     composable(Screen.AdvertisementDetailScreen.route) { backStackEntry ->
         val arguments = backStackEntry.arguments
         val id = arguments?.getString("id")
 
         if (id != null) {
-            AdvertisementDetailScreen(paddingValues = paddingValues, id = id)
+            AdvertisementDetailScreen(paddingValues = paddingValues, isLogged = isLogged, id = id)
 
         }
 

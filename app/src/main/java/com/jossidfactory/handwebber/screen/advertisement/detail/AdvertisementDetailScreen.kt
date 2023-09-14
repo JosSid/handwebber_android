@@ -12,6 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 fun AdvertisementDetailScreen(
     advertisementDetailViewModel: AdvertisementDetailViewModel = koinViewModel(),
     paddingValues: PaddingValues,
+    isLogged: Boolean,
     id:String
 ) {
 
@@ -24,6 +25,8 @@ fun AdvertisementDetailScreen(
     state.advertisement?.let { AdvertisementDetailItem(
         it,
         paddingValues,
+        isLogged,
+        state.isFavorite,
         ) {advertisementDetailViewModel.handleFavoriteAdvertisement(id)}
     }
     if(state.isError != null) {

@@ -77,6 +77,7 @@ fun LayoutApp(
             NavigationGraph(
                 navController = navController,
                 paddingValues = paddingValues,
+                isLogged = state.isLogged,
                 isChangedProfile = { isChangedProfile = !isChangedProfile },
                 onLogOut = {
                     appViewModel.logOutState()

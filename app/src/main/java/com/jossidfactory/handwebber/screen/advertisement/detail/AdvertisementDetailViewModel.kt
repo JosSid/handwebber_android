@@ -11,7 +11,6 @@ import com.jossidfactory.handwebber.domain.user.model.UpdateUserRequestModel
 import com.jossidfactory.handwebber.domain.user.usecase.GetLoggedUserUseCase
 import com.jossidfactory.handwebber.domain.user.usecase.UpdateUserUseCase
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class AdvertisementDetailViewModel(
     private val getAdvertisementByIdUseCase: GetAdvertisementByIdUseCase,
@@ -30,8 +29,11 @@ class AdvertisementDetailViewModel(
         viewModelScope.launch {
             try {
                 val response = getAdvertisementByIdUseCase.invoke(id)
+                val user = getLoggedUserUseCase.invoke()
+
                 _state.value = _state.value!!.copy(
-                    advertisement = response.result
+                    advertisement = response.result,
+                    isFavorite = user?.subscriptions?.contains(id) == true
                 )
             } catch (e: Throwable) {
                 _state.value = _state.value?.copy(
@@ -56,8 +58,18 @@ class AdvertisementDetailViewModel(
                 )
 
                 val userUpdated = user?.let { updateUserUseCase.invoke(it.id,requestBody) }
-                Timber.d(userUpdated.toString())
-                Timber.d(id)
+
+                if (userUpdated != null) {
+                    if(userUpdated.subscriptions?.contains(id) == true) {
+                        _state.value = _state.value?.copy(
+                            isFavorite = true
+                        )
+                    } else {
+                        _state.value = _state.value?.copy(
+                            isFavorite = false
+                        )
+                    }
+                }
             } catch (e: Throwable) {
                 _state.value = _state.value?.copy(
                     isError = e.toError()
@@ -65,8 +77,6 @@ class AdvertisementDetailViewModel(
                 e.logError()
             }
         }
-
-
     }
 
     fun onResetError(id: String) {

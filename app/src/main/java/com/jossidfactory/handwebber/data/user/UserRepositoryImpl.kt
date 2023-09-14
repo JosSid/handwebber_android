@@ -61,7 +61,7 @@ class UserRepositoryImpl(
         Timber.d(result.toString())
     }
 
-    override suspend fun updateUser(id: String, body: UpdateUserRequestModel) {
+    override suspend fun updateUser(id: String, body: UpdateUserRequestModel): UserDto {
         val bodyRequest = body.toUpdateUserRequestDto()
 
         val result = userDataService.updateUser(
@@ -74,6 +74,8 @@ class UserRepositoryImpl(
         val(id,username,email,image,subscriptions) = result.result
         val userEntity = UserLoggedEntity(id,username,email!!,image ?: "", subscriptions)
         userDao.insertUserLogged(userEntity)
+
+        return result.result
     }
 
     override suspend fun deleteUser(id: String): UserDto {

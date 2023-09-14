@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -36,6 +37,8 @@ import com.jossidfactory.handwebber.domain.advertisement.model.AdvertisementMode
 fun AdvertisementDetailItem(
     advertisement: AdvertisementModel,
     paddingValues: PaddingValues,
+    isLogged: Boolean,
+    isFavorite: Boolean,
     onHandleFavorite: () -> Unit
 ) {
     ElevatedCard(
@@ -81,17 +84,20 @@ fun AdvertisementDetailItem(
                 Text(text = advertisement.description)
                 Text(text = "Price: ${advertisement.price} €")
             }
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-                contentAlignment = Alignment.TopEnd
-            ) {
-                IconButton(onClick = {onHandleFavorite()}) {
-                    Icon(
-                        imageVector = Icons.Default.FavoriteBorder,
-                        contentDescription = null,
-                        tint = Color.Black
-                    )
+            if (isLogged) {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                    contentAlignment = Alignment.TopEnd
+                ) {
+                    IconButton(onClick = { onHandleFavorite() }) {
+                        Icon(
+                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default
+                                .FavoriteBorder,
+                            contentDescription = null,
+                            tint = if (isFavorite) Color.Red else Color.Black
+                        )
+                    }
                 }
             }
 

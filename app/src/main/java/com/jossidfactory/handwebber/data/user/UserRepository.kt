@@ -18,7 +18,7 @@ interface UserRepository {
 
     suspend fun postSignupUser(body: SignupUserRequestModel)
 
-    suspend fun updateUser(id: String, body: UpdateUserRequestModel)
+    suspend fun updateUser(id: String, body: UpdateUserRequestModel) : UserDto
 
     suspend fun deleteUser(id: String): UserDto
 
