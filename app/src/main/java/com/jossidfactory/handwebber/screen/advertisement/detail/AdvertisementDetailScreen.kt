@@ -21,7 +21,11 @@ fun AdvertisementDetailScreen(
     LaunchedEffect(Unit) {
         advertisementDetailViewModel.getAdvertisementById(id)
     }
-    state.advertisement?.let { AdvertisementDetailItem(it, paddingValues) }
+    state.advertisement?.let { AdvertisementDetailItem(
+        it,
+        paddingValues,
+        ) {advertisementDetailViewModel.handleFavoriteAdvertisement(id)}
+    }
     if(state.isError != null) {
         ErrorView(state.isError!!) {
             advertisementDetailViewModel.onResetError(id)

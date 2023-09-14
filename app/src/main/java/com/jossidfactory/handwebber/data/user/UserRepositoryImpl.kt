@@ -35,7 +35,7 @@ class UserRepositoryImpl(
         val user = getUserById(id)
 
         val userEntity = UserLoggedEntity(id,user.username,email,user.image ?: "",
-            user.subscriptions.toString())
+            user.subscriptions)
 
         userDao.insertUserLogged(userEntity)
     }
@@ -72,7 +72,7 @@ class UserRepositoryImpl(
             bodyRequest.subscriptions,
             bodyRequest.image)
         val(id,username,email,image,subscriptions) = result.result
-        val userEntity = UserLoggedEntity(id,username,email!!,image ?: "", subscriptions.toString())
+        val userEntity = UserLoggedEntity(id,username,email!!,image ?: "", subscriptions)
         userDao.insertUserLogged(userEntity)
     }
 

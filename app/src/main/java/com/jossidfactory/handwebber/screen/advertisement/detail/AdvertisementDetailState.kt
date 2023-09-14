@@ -5,5 +5,6 @@ import com.jossidfactory.handwebber.domain.advertisement.model.AdvertisementMode
 
 data class AdvertisementDetailState(
     val advertisement: AdvertisementModel? = null,
-    val isError: Error? = null
+    val isError: Error? = null,
+    val isFavorite: Boolean = false
 )
