@@ -13,7 +13,7 @@ fun AdvertisementDetailScreen(
     advertisementDetailViewModel: AdvertisementDetailViewModel = koinViewModel(),
     paddingValues: PaddingValues,
     isLogged: Boolean,
-    id:String
+    id: String
 ) {
 
     val state: AdvertisementDetailState by advertisementDetailViewModel.state.observeAsState(
@@ -22,14 +22,16 @@ fun AdvertisementDetailScreen(
     LaunchedEffect(Unit) {
         advertisementDetailViewModel.getAdvertisementById(id)
     }
-    state.advertisement?.let { AdvertisementDetailItem(
-        it,
-        paddingValues,
-        isLogged,
-        state.isFavorite,
-        ) {advertisementDetailViewModel.handleFavoriteAdvertisement(id)}
-    }
-    if(state.isError != null) {
+    if (state.isError == null) {
+        state.advertisement?.let {
+            AdvertisementDetailItem(
+                it,
+                paddingValues,
+                isLogged,
+                state.isFavorite,
+            ) { advertisementDetailViewModel.handleFavoriteAdvertisement(id) }
+        }
+    } else {
         ErrorView(state.isError!!) {
             advertisementDetailViewModel.onResetError(id)
         }
