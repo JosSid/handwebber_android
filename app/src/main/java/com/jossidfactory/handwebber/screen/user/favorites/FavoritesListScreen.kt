@@ -4,6 +4,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.jossidfactory.handwebber.R
+import com.jossidfactory.handwebber.common.ui.components.SuccesView
 import com.jossidfactory.handwebber.common.ui.components.error.ErrorView
 import com.jossidfactory.handwebber.common.ui.components.searchBar.SearchBarApp
 import com.jossidfactory.handwebber.screen.advertisement.list.AdvertisementList
@@ -20,21 +24,28 @@ fun FavoritesListScreen(
         FavoritesListState()
     )
 
-    if(state.isError == null) {
+    if(state.isError == null && state.advertisements.isNotEmpty()) {
 
         SearchBarApp(
             paddingValues = paddingValues,
             query = state.query,
-            onQueryChange = {/*favoritesListViewModel.onQueryChange(it)*/}
+            onQueryChange = {favoritesListViewModel.onQueryChange(it)}
         ) {
             AdvertisementList(
                 state.advertisements,
                 onItemClick
             )
         }
-    } else {
+    } else if(state.isError == null) {
+        SuccesView(
+            title = stringResource(id = R.string.favorites_title),
+            text = stringResource(id = R.string.favorites_text),
+            painter = painterResource(id = R.drawable
+            .baseline_search_off_24))
+    }
+    else {
         ErrorView(state.isError!!) {
-            /*favoritesListViewModel.onResetError()*/
+            favoritesListViewModel.onResetError()
         }
     }
 

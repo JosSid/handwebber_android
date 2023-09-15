@@ -25,4 +25,6 @@
     <string name="deleted_user_title">Cuenta eliminada</string>
     <string name="deleted_user_text">Esperamos volver a verte pronto</string>
     <string name="update_account">Actualizar cuenta</string>
+    <string name="favorites_title">Favoritos</string>
+    <string name="favorites_text">Aún no tienes ningún anúncio favorito.</string>
 </resources>

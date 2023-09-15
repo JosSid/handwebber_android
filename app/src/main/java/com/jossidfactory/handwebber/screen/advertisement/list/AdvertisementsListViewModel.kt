@@ -20,8 +20,7 @@ class AdvertisementsListViewModel(
     private val _state = MutableLiveData<AdvertisementsListState>()
     val state: LiveData<AdvertisementsListState> = _state
 
-    var filteredAds = mutableListOf<AdvertisementModel>()
-        private set
+    private var filteredAds = mutableListOf<AdvertisementModel>()
 
     init {
         getAdvertisementsList()
@@ -58,8 +57,8 @@ class AdvertisementsListViewModel(
         )
         try {
             if (query.isNotEmpty()) {
-                val ads = filteredAds.filter { beer ->
-                    beer.name.lowercase().contains(
+                val ads = filteredAds.filter { ad ->
+                    ad.name.lowercase().contains(
                         query
                             .lowercase()
                     )
