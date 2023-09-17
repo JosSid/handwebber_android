@@ -1,5 +1,6 @@
 package com.jossidfactory.handwebber.di
 
+import com.jossidfactory.handwebber.screen.advertisement.create.CreateAdvertisementViewModel
 import com.jossidfactory.handwebber.screen.advertisement.detail.AdvertisementDetailViewModel
 import com.jossidfactory.handwebber.screen.advertisement.list.AdvertisementsListViewModel
 import com.jossidfactory.handwebber.screen.layout.AppViewModel
@@ -20,4 +21,5 @@ val ViewModule = module {
     viewModel { ProfileViewModel(get(), get()) }
     viewModel { UpdateUserViewModel(get(), get()) }
     viewModel { FavoritesListViewModel(get(), get()) }
+    viewModel { CreateAdvertisementViewModel() }
 }

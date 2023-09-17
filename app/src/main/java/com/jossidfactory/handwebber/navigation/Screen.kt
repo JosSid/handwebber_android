@@ -6,7 +6,8 @@ enum class Screen(val route: String) {
         LoginScreen("login_screen"),
         ProfileScreen("profile_screen"),
         UpdateUserScreen("update_user_screen"),
-        FavoritsListScreen("favorites_list_screen")
+        FavoritsListScreen("favorites_list_screen"),
+        CreateAdvertisementScreen("post advertisement_advertisement_screen")
 }
 
 data class NavigationItemModel(

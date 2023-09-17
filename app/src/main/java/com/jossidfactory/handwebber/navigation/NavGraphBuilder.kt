@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.jossidfactory.handwebber.screen.advertisement.create.CreateAdvertisementFormScreen
 import com.jossidfactory.handwebber.screen.advertisement.detail.AdvertisementDetailScreen
 import com.jossidfactory.handwebber.screen.advertisement.list.AdvertisementsListScreen
 import com.jossidfactory.handwebber.screen.user.favorites.FavoritesListScreen
@@ -88,5 +89,14 @@ fun NavGraphBuilder.addFavoritesListScreen(
                 }
             }
         }
+    }
+}
+
+fun NavGraphBuilder.addCreateAdvertisementScreen(
+    navController: NavController,
+    paddingValues: PaddingValues,
+) {
+    composable(Screen.CreateAdvertisementScreen.route) {
+        CreateAdvertisementFormScreen(paddingValues = paddingValues)
     }
 }

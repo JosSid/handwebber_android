@@ -32,6 +32,10 @@ fun NavigationItemsList(
             NavigationItemModel(
                 "Favorites",
                 Screen.FavoritsListScreen
+            ),
+            NavigationItemModel(
+                "Create Advertisement",
+                Screen.CreateAdvertisementScreen
             )
         )
     }else{
