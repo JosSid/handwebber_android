@@ -1,0 +1,13 @@
+package com.jossidfactory.handwebber.screen.user.update
+
+import android.graphics.Bitmap
+import com.jossidfactory.handwebber.common.domain.entity.Error
+
+data class UpdateUserState(
+    val username: String = "",
+    val email: String = "",
+    val password: String = "",
+    val confirmPassword: String = "",
+    val image: Bitmap? = null,
+    val isError: Error? = null
+)

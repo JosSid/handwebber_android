@@ -7,9 +7,9 @@ data class ProfileState(
     val username: String = "",
     val email: String = "",
     val image: String = "",
-    val subscriptions: List<String>? = emptyList(),
+    val subscriptions: List<String?>? = emptyList(),
     val isError: Error? = null,
-    val view: ProfileViewState = ProfileViewState.IsProfile
+    val view: ProfileViewState = ProfileViewState.IsProfile,
 )
 
 enum class ProfileViewState {

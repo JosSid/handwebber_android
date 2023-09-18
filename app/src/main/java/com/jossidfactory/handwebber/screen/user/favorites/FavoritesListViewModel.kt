@@ -1,4 +1,4 @@
-package com.jossidfactory.handwebber.screen.advertisement.list
+package com.jossidfactory.handwebber.screen.user.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,46 +8,52 @@ import com.jossidfactory.handwebber.common.domain.exception.EmptySearchException
 import com.jossidfactory.handwebber.common.domain.mappers.logError
 import com.jossidfactory.handwebber.common.domain.mappers.toError
 import com.jossidfactory.handwebber.domain.advertisement.model.AdvertisementModel
-import com.jossidfactory.handwebber.domain.advertisement.usecase.GetAdvertisementsListUseCase
+import com.jossidfactory.handwebber.domain.advertisement.usecase.GetAdvertisementByIdUseCase
+import com.jossidfactory.handwebber.domain.user.usecase.GetLoggedUserUseCase
 import kotlinx.coroutines.launch
 
-class AdvertisementsListViewModel(
-    private val getAdvertisementsListUseCase: GetAdvertisementsListUseCase
+class FavoritesListViewModel(
+    private val getAdvertisementByIdUseCase: GetAdvertisementByIdUseCase,
+    private val getLoggedUserUseCase: GetLoggedUserUseCase
 ): ViewModel() {
 
-    private val advertisementListState = AdvertisementsListState()
+    private val favoritesListState = FavoritesListState()
 
-    private val _state = MutableLiveData<AdvertisementsListState>()
-    val state: LiveData<AdvertisementsListState> = _state
+    private val _state = MutableLiveData<FavoritesListState>()
+    val state: LiveData<FavoritesListState> = _state
 
     private var filteredAds = mutableListOf<AdvertisementModel>()
 
     init {
-        getAdvertisementsList()
+        getFavorites()
     }
 
-    private fun getAdvertisementsList(){
-        _state.value = advertisementListState
+    fun getFavorites() {
+        _state.value = favoritesListState
         _state.value = _state.value?.copy(
             isError = null
         )
 
         viewModelScope.launch {
             try {
-                val response = getAdvertisementsListUseCase.invoke()
-                filteredAds = response.result.toMutableList()
+                val user = getLoggedUserUseCase.invoke()
+                user?.subscriptions?.forEach {
+                    val advertisement = it?.let { id -> getAdvertisementByIdUseCase.invoke(id) }
+                    if (advertisement != null) {
+                        filteredAds.add(advertisement.result)
+                    }
+                }
                 _state.value = _state.value?.copy(
                     advertisements = filteredAds
                 )
 
-            }catch (e: Throwable){
+            } catch (e: Throwable) {
                 _state.value = _state.value?.copy(
                     isError = e.toError()
                 )
                 e.logError()
             }
         }
-
     }
 
     fun onQueryChange(query: String) {
@@ -89,7 +95,7 @@ class AdvertisementsListViewModel(
             val query = state.value!!.query
             onQueryChange(query.substring(0, query.length -1))
         }else{
-            getAdvertisementsList()
+            getFavorites()
         }
     }
 }

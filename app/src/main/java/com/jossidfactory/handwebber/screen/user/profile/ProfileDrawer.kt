@@ -27,12 +27,13 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun ProfileDrawer(
     profileViewModel: ProfileViewModel = koinViewModel(),
-    isLogged: Boolean
+    isLogged: Boolean,
+    isChangedProfile: Boolean
 ) {
     val state: ProfileState by profileViewModel.state.observeAsState(ProfileState())
 
-    LaunchedEffect(key1 = isLogged) {
-        profileViewModel.getLoggedUser()
+    LaunchedEffect(key1 = isLogged, key2 = isChangedProfile) {
+            profileViewModel.getLoggedUser()
     }
 
     Row(

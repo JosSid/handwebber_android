@@ -5,6 +5,7 @@ import com.squareup.moshi.Json
 data class UserDto(
     @Json(name = "_id") val id: String,
     @Json(name = "username") val username: String,
+    @Json(name = "mail") val email: String?,
     @Json(name = "image") val image: String?,
     @Json(name = "subscriptions") val subscriptions: List<String?>?
 )

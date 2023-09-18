@@ -4,7 +4,10 @@ enum class Screen(val route: String) {
         AdvertisementsListScreen("advertisements_list_screen"),
         AdvertisementDetailScreen("advertisement_detail_screen/{id}"),
         LoginScreen("login_screen"),
-        ProfileScreen("profile_screen")
+        ProfileScreen("profile_screen"),
+        UpdateUserScreen("update_user_screen"),
+        FavoritsListScreen("favorites_list_screen"),
+        CreateAdvertisementScreen("post advertisement_advertisement_screen")
 }
 
 data class NavigationItemModel(
@@ -12,13 +15,5 @@ data class NavigationItemModel(
         val route: Screen
 )
 
-val navigationItems = listOf(
-        NavigationItemModel(
-                "Login/Signup",
-                Screen.LoginScreen
-        ),
-        NavigationItemModel(
-                "Profile",
-                Screen.ProfileScreen
-        ),
-)
+
+

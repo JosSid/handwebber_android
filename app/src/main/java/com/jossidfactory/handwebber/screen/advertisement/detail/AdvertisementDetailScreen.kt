@@ -12,7 +12,8 @@ import org.koin.androidx.compose.koinViewModel
 fun AdvertisementDetailScreen(
     advertisementDetailViewModel: AdvertisementDetailViewModel = koinViewModel(),
     paddingValues: PaddingValues,
-    id:String
+    isLogged: Boolean,
+    id: String
 ) {
 
     val state: AdvertisementDetailState by advertisementDetailViewModel.state.observeAsState(
@@ -21,8 +22,16 @@ fun AdvertisementDetailScreen(
     LaunchedEffect(Unit) {
         advertisementDetailViewModel.getAdvertisementById(id)
     }
-    state.advertisement?.let { AdvertisementDetailItem(it, paddingValues) }
-    if(state.isError != null) {
+    if (state.isError == null) {
+        state.advertisement?.let {
+            AdvertisementDetailItem(
+                it,
+                paddingValues,
+                isLogged,
+                state.isFavorite,
+            ) { advertisementDetailViewModel.handleFavoriteAdvertisement(id) }
+        }
+    } else {
         ErrorView(state.isError!!) {
             advertisementDetailViewModel.onResetError(id)
         }

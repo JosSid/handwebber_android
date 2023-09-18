@@ -8,14 +8,22 @@ import androidx.navigation.compose.NavHost
 
 @Composable
 fun NavigationGraph(
-    navController: NavController, paddingValues: PaddingValues, onLogOut: () -> Unit, cb: () -> Unit
+    navController: NavController,
+    paddingValues: PaddingValues,
+    isLogged: Boolean,
+    isChangedProfile: () -> Unit,
+    onLogOut: () -> Unit,
+    cb: () -> Unit
 ) {
     NavHost(navController = navController as NavHostController,
         startDestination = Screen.AdvertisementsListScreen.route,
         ) {
         addAdvertisementsListScreen(navController, paddingValues)
-        addAdvertisementDetailScreen(navController, paddingValues)
+        addAdvertisementDetailScreen(navController, paddingValues, isLogged)
         addLoginScreen(navController, paddingValues, cb)
         addProfileScreen(navController,paddingValues, onLogOut)
+        addUpdateUserScreen(navController, paddingValues, isChangedProfile)
+        addFavoritesListScreen(navController, paddingValues)
+        addCreateAdvertisementScreen(navController, paddingValues)
     }
 }

@@ -4,11 +4,13 @@ import com.jossidfactory.handwebber.data.user.local.AuthRepository
 import com.jossidfactory.handwebber.data.user.local.UserDao
 import com.jossidfactory.handwebber.data.user.local.model.UserLoggedEntity
 import com.jossidfactory.handwebber.data.user.mappers.toSignupUserRequestDto
+import com.jossidfactory.handwebber.data.user.mappers.toUpdateUserRequestDto
 import com.jossidfactory.handwebber.data.user.mappers.toUserLoggedModel
 import com.jossidfactory.handwebber.data.user.remote.UserDataService
 import com.jossidfactory.handwebber.data.user.remote.dto.LoginUserDto
 import com.jossidfactory.handwebber.data.user.remote.dto.UserDto
 import com.jossidfactory.handwebber.domain.user.model.SignupUserRequestModel
+import com.jossidfactory.handwebber.domain.user.model.UpdateUserRequestModel
 import com.jossidfactory.handwebber.domain.user.model.UserLoggedModel
 import timber.log.Timber
 
@@ -33,7 +35,7 @@ class UserRepositoryImpl(
         val user = getUserById(id)
 
         val userEntity = UserLoggedEntity(id,user.username,email,user.image ?: "",
-            user.subscriptions.toString())
+            user.subscriptions)
 
         userDao.insertUserLogged(userEntity)
     }
@@ -57,6 +59,23 @@ class UserRepositoryImpl(
             bodyRequest.password,
             bodyRequest.image)
         Timber.d(result.toString())
+    }
+
+    override suspend fun updateUser(id: String, body: UpdateUserRequestModel): UserDto {
+        val bodyRequest = body.toUpdateUserRequestDto()
+
+        val result = userDataService.updateUser(
+            id,
+            bodyRequest.username,
+            bodyRequest.email,
+            bodyRequest.password,
+            bodyRequest.subscriptions,
+            bodyRequest.image)
+        val(id,username,email,image,subscriptions) = result.result
+        val userEntity = UserLoggedEntity(id,username,email!!,image ?: "", subscriptions)
+        userDao.insertUserLogged(userEntity)
+
+        return result.result
     }
 
     override suspend fun deleteUser(id: String): UserDto {

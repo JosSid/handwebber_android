@@ -4,19 +4,27 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -28,7 +36,10 @@ import com.jossidfactory.handwebber.domain.advertisement.model.AdvertisementMode
 @Composable
 fun AdvertisementDetailItem(
     advertisement: AdvertisementModel,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    isLogged: Boolean,
+    isFavorite: Boolean,
+    onHandleFavorite: () -> Unit
 ) {
     ElevatedCard(
         modifier = Modifier
@@ -64,7 +75,8 @@ fun AdvertisementDetailItem(
             }
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
+                    .defaultMinSize(100.dp, 200.dp)
                     .padding(10.dp),
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
@@ -72,6 +84,23 @@ fun AdvertisementDetailItem(
                 Text(text = advertisement.description)
                 Text(text = "Price: ${advertisement.price} €")
             }
+            if (isLogged) {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                    contentAlignment = Alignment.TopEnd
+                ) {
+                    IconButton(onClick = { onHandleFavorite() }) {
+                        Icon(
+                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default
+                                .FavoriteBorder,
+                            contentDescription = null,
+                            tint = if (isFavorite) Color.Red else Color.Black
+                        )
+                    }
+                }
+            }
+
         }
     }
 }

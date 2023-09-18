@@ -5,6 +5,6 @@ data class UserLoggedModel(
     val username: String,
     val email: String,
     val image: String,
-    val subscriptions: List<String>?
+    val subscriptions: List<String?>?
 )
 
